@@ -1,6 +1,23 @@
+import { useFormik } from "formik";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid"
+import * as Yup from 'yup';
 
 const SignIn = () => {
+
+  const formikSignIn = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("El correo electronico no es valido").required("El correo electronico es obligatorio"),
+      password: Yup.string().required("La contraseña es obligatoria"),
+    }),
+    onSubmit: (formData) => {
+      console.log(formData);
+    }
+  })
+
   return (
     <div className="flex justify-between min-h-screen font-sans bg-platzi-primary-background">
       <div
@@ -48,40 +65,62 @@ const SignIn = () => {
               <span className="px-4 font-light tracking-wider text-white">o</span>
               <hr className="w-full border-gray-200" />
             </div>
-            <form action="">
+            <form onSubmit={formikSignIn.handleSubmit}>
               <div className="pt-6">
                 <label htmlFor="email" className="font-light">Correo Electronico</label>
                 <div
-                  className="flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-platzi-primary-green hover:border-platzi-primary-green"
+                  className={
+                    `flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-platzi-primary-green hover:border-platzi-primary-green`
+                    + (formikSignIn.touched.email && formikSignIn.errors.email ? ' border-red-500 hover:border-red-500 focus-within:border-red-500' : '')
+                  }
                 >
                   <div className="flex items-center justify-center pl-4">
                     <EnvelopeIcon className="w-6 h-6 pointer-events-none" />
                   </div>
                   <input
-                    type="text"
-                    name="email"
                     id="email"
+                    name="email"
+                    type="text"
+                    onChange={formikSignIn.handleChange}
+                    onBlur={formikSignIn.handleBlur}
+                    value={formikSignIn.values.email}
                     placeholder="Ingresa tu correo electronico"
                     className="w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-platzi-primary-background"
                   />
                 </div>
+                {
+                  formikSignIn.touched.email && formikSignIn.errors.email ? (
+                    <div className="mt-2 text-sm text-red-500">{formikSignIn.errors.email}</div>
+                  ) : null
+                }
               </div>
               <div className="pt-6">
                 <label htmlFor="password" className="font-light">Contraseña</label>
                 <div
-                  className="flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-platzi-primary-green hover:border-platzi-primary-green"
+                  className={
+                    `flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-platzi-primary-green hover:border-platzi-primary-green`
+                    + (formikSignIn.touched.password && formikSignIn.errors.password ? ' border-red-500 hover:border-red-500 focus-within:border-red-500' : '')
+                  }
                 >
                   <div className="flex items-center justify-center pl-4">
                     <LockClosedIcon className="w-6 h-6 pointer-events-none" />
                   </div>
                   <input
-                    type="password"
-                    name="password"
                     id="password"
+                    name="password"
+                    type="password"
+                    onChange={formikSignIn.handleChange}
+                    onBlur={formikSignIn.handleBlur}
+                    value={formikSignIn.values.password}
                     placeholder="Ingresa tu contraseña"
                     className="w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-platzi-primary-background"
                   />
                 </div>
+                {
+                  formikSignIn.touched.password && formikSignIn.errors.password ? (
+                    <div className="mt-2 text-sm text-red-500">{formikSignIn.errors.password}</div>
+                  ) : null
+                }
               </div>
               <div className="flex items-center justify-between pt-4">
                 <div className="flex items-center">
@@ -113,7 +152,7 @@ const SignIn = () => {
                 </a>
               </div>
               <div className="flex flex-wrap items-center justify-between pt-4 text-center gap-y-2">
-                <span className="flex-1 text-gray-500">© 2021 Platzi Shop. Todos los derechos reservados.</span>
+                <span className="flex-1 text-gray-300">© {new Date().getFullYear()} Platzi Shop. Todos los derechos reservados.</span>
               </div>
             </div>
           </div>
