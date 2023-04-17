@@ -37,7 +37,7 @@ const SignUp = () => {
         className="relative hidden w-1/2 bg-center bg-cover lg:block bg-platzi-primary-purple"
       >
         <div className="absolute flex flex-col items-center justify-center w-full bottom-20">
-          <img src="/images/shopping_bags.svg" alt="" />
+          <img src="/images/shopping_bags.svg" alt="shopping_bags" />
           <div className="max-w-md text-center">
             <span className="text-3xl font-bold leading-loose text-white">
               Una mejor forma de comprar
@@ -49,17 +49,14 @@ const SignUp = () => {
         </div>
       </div>
       <div className="flex-1 max-w-2xl mx-auto">
-        <div className="flex flex-col justify-center h-screen p-6 text-white lg:px-14 xl:px-24">
-          <img src="images/logo_platzi.png" className="self-center w-32 pb-10 lg:pb-10 md:self-end" />
-          <div >
-            <h1 className="text-2xl font-bold leading-loose tracking-wide lg:text-3xl xl:text-3xl whitespace-nowrap">
+        <div className="flex flex-col p-4 text-white lg:px-14 xl:px-24">
+          <img src="images/logo_platzi.png" className="self-center w-32 pb-10 lg:pb-4 md:self-end" alt="logo_platzi" />
+          <div>
+            <h1 className="pb-6 text-2xl font-bold leading-loose tracking-wide lg:text-3xl xl:text-3xl whitespace-nowrap">
               ¡Registrate ahora!
             </h1>
-            <span className="text-sm font-light text-gray-200 lg:text-base xl:text-base">
-              ¡Accede ahora! Gestiona tus compras de manera sencilla.
-            </span>
             <form onSubmit={formikSignUp.handleSubmit}>
-              <div className="pt-6">
+              <div className="pt-4">
                 <label htmlFor="name" className="font-light">Nombres</label>
                 <div
                   className={
@@ -87,7 +84,7 @@ const SignUp = () => {
                   ) : null
                 }
               </div>
-              <div className="pt-6">
+              <div className="pt-4">
                 <label htmlFor="email" className="font-light">Correo Electronico</label>
                 <div
                   className={
@@ -115,7 +112,7 @@ const SignUp = () => {
                   ) : null
                 }
               </div>
-              <div className="pt-6">
+              <div className="pt-4">
                 <label htmlFor="password" className="font-light">Contraseña</label>
                 <div
                   className={
@@ -143,7 +140,7 @@ const SignUp = () => {
                   ) : null
                 }
               </div>
-              <div className="pt-6">
+              <div className="pt-4">
                 <label htmlFor="passwordConfirmation" className="font-light">Confirmar Contraseña</label>
                 <div
                   className={
@@ -171,7 +168,7 @@ const SignUp = () => {
                   ) : null
                 }
               </div>
-              <div className="pt-6">
+              <div className="pt-4">
                 <button
                   type="submit"
                   className="w-full px-8 py-4 text-white shadow-lg bg-platzi-primary-purple rounded-xl hover:bg-platzi-primary-purple focus:ring-4 focus:ring-platzi-primary-purple focus:outline-none"
@@ -186,9 +183,6 @@ const SignUp = () => {
                 <Link to="/iniciar-sesion" className="font-normal text-platzi-primary-green hover:text-platzi-primary-green">
                   Inicia sesión
                 </Link>
-              </div>
-              <div className="flex flex-wrap items-center justify-between pt-4 text-center gap-y-2">
-                <span className="flex-1 text-gray-300">© {new Date().getFullYear()} Platzi Shop. Todos los derechos reservados.</span>
               </div>
             </div>
           </div>
