@@ -5,8 +5,8 @@ import {
 import React from "react";
 import ReactDOM from "react-dom/client";
 import SignIn from "./views/authentication/signin";
-import "./assets/css/main.css";
 import SignUp from "./views/authentication/signup";
+import "./assets/css/main.css";
 
 const router = createBrowserRouter([
 	{
