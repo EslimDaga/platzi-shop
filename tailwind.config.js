@@ -5,6 +5,11 @@ export default {
 		extend: {
 			fontFamily: {
 				poppins: ["Poppins", "sans-serif"],
+			},
+			colors: {
+				"platzi-primary-background": "#13161c",
+				"platzi-primary-green": "#0ae98a",
+				"platzi-primary-purple": "#4d1bd1",
 			}
 		},
 	},
