@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid"
 import * as Yup from 'yup';
@@ -40,7 +41,7 @@ const SignIn = () => {
           <img src="images/logo_platzi.png" className="self-center w-32 pb-10 lg:pb-10 md:self-end" />
           <div >
             <h1 className="text-2xl font-bold leading-loose tracking-wide lg:text-3xl xl:text-3xl whitespace-nowrap">
-              Bienvenido de nuevo!
+              ¡Bienvenido de nuevo!
             </h1>
             <span className="text-sm font-light text-gray-200 lg:text-base xl:text-base">
               ¡Accede ahora! Gestiona tus compras de manera sencilla.
@@ -147,9 +148,9 @@ const SignIn = () => {
             <div className="pt-4">
               <div className="font-light text-center text-white">
                 ¿Aún no tienes una cuenta? {" "}
-                <a href="#" className="font-normal text-platzi-primary-green hover:text-platzi-primary-green">
+                <Link to="/registrarse" className="font-normal text-platzi-primary-green hover:text-platzi-primary-green">
                   Crea una cuenta
-                </a>
+                </Link>
               </div>
               <div className="flex flex-wrap items-center justify-between pt-4 text-center gap-y-2">
                 <span className="flex-1 text-gray-300">© {new Date().getFullYear()} Platzi Shop. Todos los derechos reservados.</span>
