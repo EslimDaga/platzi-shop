@@ -25,7 +25,7 @@ const SignIn = () => {
         className="relative hidden w-1/2 bg-center bg-cover lg:block bg-platzi-primary-purple"
       >
         <div className="absolute flex flex-col items-center justify-center w-full bottom-20">
-          <img src="/images/shopping_bags.svg" alt="" />
+          <img src="/images/shopping_bags.svg" alt="shopping_bags" />
           <div className="max-w-md text-center">
             <span className="text-3xl font-bold leading-loose text-white">
               Una mejor forma de comprar
@@ -37,8 +37,8 @@ const SignIn = () => {
         </div>
       </div>
       <div className="flex-1 max-w-2xl mx-auto">
-        <div className="flex flex-col justify-center h-screen p-6 text-white lg:px-14 xl:px-24">
-          <img src="images/logo_platzi.png" className="self-center w-32 pb-10 lg:pb-10 md:self-end" />
+        <div className="flex flex-col p-6 text-white lg:px-14 xl:px-24">
+          <img src="images/logo_platzi.png" className="self-center w-32 pb-10 lg:pb-20 md:self-end" alt="logo_platzi" />
           <div >
             <h1 className="text-2xl font-bold leading-loose tracking-wide lg:text-3xl xl:text-3xl whitespace-nowrap">
               ¡Bienvenido de nuevo!
@@ -67,7 +67,7 @@ const SignIn = () => {
               <hr className="w-full border-gray-200" />
             </div>
             <form onSubmit={formikSignIn.handleSubmit}>
-              <div className="pt-6">
+              <div className="pt-4">
                 <label htmlFor="email" className="font-light">Correo Electronico</label>
                 <div
                   className={
@@ -95,7 +95,7 @@ const SignIn = () => {
                   ) : null
                 }
               </div>
-              <div className="pt-6">
+              <div className="pt-4">
                 <label htmlFor="password" className="font-light">Contraseña</label>
                 <div
                   className={
@@ -147,13 +147,12 @@ const SignIn = () => {
             </form>
             <div className="pt-4">
               <div className="font-light text-center text-white">
-                ¿Aún no tienes una cuenta? {" "}
                 <Link to="/registrarse" className="font-normal text-platzi-primary-green hover:text-platzi-primary-green">
                   Crea una cuenta
                 </Link>
               </div>
-              <div className="flex flex-wrap items-center justify-between pt-4 text-center gap-y-2">
-                <span className="flex-1 text-gray-300">© {new Date().getFullYear()} Platzi Shop. Todos los derechos reservados.</span>
+              <div className="flex flex-wrap items-center justify-center pt-4 text-center gap-y-2">
+                <span className="text-sm text-gray-300 lg:text-base">© {new Date().getFullYear()} Platzi Shop. <br /> Todos los derechos reservados.</span>
               </div>
             </div>
           </div>
