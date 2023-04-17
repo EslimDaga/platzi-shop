@@ -13,7 +13,7 @@ const SignIn = () => {
               Una mejor forma de comprar
             </span>
             <p className="font-light leading-7 text-gray-200">
-              Platzi Store es una plataforma donde puedes comprar y vender tus productos online.
+              Platzi Shop es una plataforma donde puedes comprar y vender tus productos online.
             </p>
           </div>
         </div>
@@ -113,7 +113,7 @@ const SignIn = () => {
                 </a>
               </div>
               <div className="flex flex-wrap items-center justify-between text-center gap-y-2 pt-14">
-                <span className="flex-1 text-gray-500">© 2021 Platzi Store. Todos los derechos reservados.</span>
+                <span className="flex-1 text-gray-500">© 2021 Platzi Shop. Todos los derechos reservados.</span>
               </div>
             </div>
           </div>
