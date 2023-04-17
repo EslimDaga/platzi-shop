@@ -52,7 +52,7 @@ const SignIn = () => {
               <div className="pt-6">
                 <label htmlFor="email" className="font-light">Correo Electronico</label>
                 <div
-                  className="flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-[#0ae98a]"
+                  className="flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-[#0ae98a] hover:border-[#0ae98a]"
                 >
                   <div className="flex items-center justify-center pl-4">
                     <EnvelopeIcon className="w-6 h-6 pointer-events-none" />
@@ -69,7 +69,7 @@ const SignIn = () => {
               <div className="pt-6">
                 <label htmlFor="password" className="font-light">Contraseña</label>
                 <div
-                  className="flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-[#0ae98a]"
+                  className="flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-[#0ae98a] hover:border-[#0ae98a]"
                 >
                   <div className="flex items-center justify-center pl-4">
                     <LockClosedIcon className="w-6 h-6 pointer-events-none" />
@@ -89,7 +89,7 @@ const SignIn = () => {
                     type="checkbox"
                     name="remember"
                     id="remember"
-                    className="w-5 h-5 text-[#0ae98a] bg-white border border-gray-400 rounded focus:outline-none focus:ring-[#0ae98a]"
+                    className="w-5 h-5 text-[#0ae98a] bg-white border border-gray-400 rounded focus:outline-none focus:ring-[#0ae98a] accent-[#0ae98a]"
                   />
                   <label htmlFor="remember" className="pl-4 font-light text-white">
                     Recordarme
@@ -112,11 +112,8 @@ const SignIn = () => {
                   Crea una cuenta
                 </a>
               </div>
-              <div
-                className="flex flex-wrap items-center justify-between text-center gap-y-2 pt-14"
-              >
+              <div className="flex flex-wrap items-center justify-between text-center gap-y-2 pt-14">
                 <span className="flex-1 text-gray-500">© 2021 Platzi Store. Todos los derechos reservados.</span>
-
               </div>
             </div>
           </div>
