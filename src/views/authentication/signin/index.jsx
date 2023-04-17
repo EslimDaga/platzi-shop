@@ -19,9 +19,9 @@ const SignIn = () => {
         </div>
       </div>
       <div className="flex-1 max-w-2xl mx-auto">
-        <div className="flex flex-col px-6 pt-10 text-white lg:px-14 xl:px-24">
-          <img src="images/logo_platzi.png" className="self-center w-32 md:self-end" />
-          <div className="pt-20 pb-6">
+        <div className="flex flex-col justify-center h-screen p-6 text-white lg:px-14 xl:px-24">
+          <img src="images/logo_platzi.png" className="self-center w-32 pb-10 lg:pb-10 md:self-end" />
+          <div >
             <h1 className="text-2xl font-bold leading-loose tracking-wide lg:text-3xl xl:text-3xl whitespace-nowrap">
               Bienvenido de nuevo!
             </h1>
@@ -29,7 +29,7 @@ const SignIn = () => {
               ¡Accede ahora! Gestiona tus compras de manera sencilla.
             </span>
             <div
-              className="flex flex-wrap items-center justify-between pt-10 gap-y-4 gap-x-6 whitespace-nowrap"
+              className="flex flex-wrap items-center justify-between pt-6 gap-y-4 gap-x-6 whitespace-nowrap"
             >
               <button
                 className="flex items-center justify-center flex-1 px-3 py-4 bg-white border border-gray-400 rounded-xl whitespace-nowrap hover:bg-gray-50 focus:outline-none focus:ring-gray-100 focus:ring-4"
@@ -62,7 +62,7 @@ const SignIn = () => {
                     name="email"
                     id="email"
                     placeholder="Ingresa tu correo electronico"
-                    className="w-full px-4 py-4 font-light border-0 focus:outline-none focus:ring-0 bg-[#13161c]"
+                    className="w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-[#13161c]"
                   />
                 </div>
               </div>
@@ -79,7 +79,7 @@ const SignIn = () => {
                     name="password"
                     id="password"
                     placeholder="Ingresa tu contraseña"
-                    className="w-full px-4 py-4 font-light border-0 focus:outline-none focus:ring-0 bg-[#13161c]"
+                    className="w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-[#13161c]"
                   />
                 </div>
               </div>
@@ -96,7 +96,7 @@ const SignIn = () => {
                   </label>
                 </div>
               </div>
-              <div className="pt-8">
+              <div className="pt-6">
                 <button
                   type="submit"
                   className="w-full px-8 py-4 text-white bg-[#4d1bd1] shadow-lg rounded-xl hover:bg-[#4d1bd1] focus:ring-4 focus:ring-red-100 focus:outline-none"
@@ -112,7 +112,7 @@ const SignIn = () => {
                   Crea una cuenta
                 </a>
               </div>
-              <div className="flex flex-wrap items-center justify-between text-center gap-y-2 pt-14">
+              <div className="flex flex-wrap items-center justify-between pt-4 text-center gap-y-2">
                 <span className="flex-1 text-gray-500">© 2021 Platzi Shop. Todos los derechos reservados.</span>
               </div>
             </div>
