@@ -2,9 +2,9 @@ import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid"
 
 const SignIn = () => {
   return (
-    <div className="flex justify-between min-h-screen font-sans bg-[#13161c]">
+    <div className="flex justify-between min-h-screen font-sans bg-platzi-primary-background">
       <div
-        className="relative hidden w-1/2 bg-center bg-cover lg:block bg-[#4d1bd1]"
+        className="relative hidden w-1/2 bg-center bg-cover lg:block bg-platzi-primary-purple"
       >
         <div className="absolute flex flex-col items-center justify-center w-full bottom-20">
           <img src="/images/shopping_bags.svg" alt="" />
@@ -52,7 +52,7 @@ const SignIn = () => {
               <div className="pt-6">
                 <label htmlFor="email" className="font-light">Correo Electronico</label>
                 <div
-                  className="flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-[#0ae98a] hover:border-[#0ae98a]"
+                  className="flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-platzi-primary-green hover:border-platzi-primary-green"
                 >
                   <div className="flex items-center justify-center pl-4">
                     <EnvelopeIcon className="w-6 h-6 pointer-events-none" />
@@ -62,14 +62,14 @@ const SignIn = () => {
                     name="email"
                     id="email"
                     placeholder="Ingresa tu correo electronico"
-                    className="w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-[#13161c]"
+                    className="w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-platzi-primary-background"
                   />
                 </div>
               </div>
               <div className="pt-6">
                 <label htmlFor="password" className="font-light">Contraseña</label>
                 <div
-                  className="flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-[#0ae98a] hover:border-[#0ae98a]"
+                  className="flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-platzi-primary-green hover:border-platzi-primary-green"
                 >
                   <div className="flex items-center justify-center pl-4">
                     <LockClosedIcon className="w-6 h-6 pointer-events-none" />
@@ -79,7 +79,7 @@ const SignIn = () => {
                     name="password"
                     id="password"
                     placeholder="Ingresa tu contraseña"
-                    className="w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-[#13161c]"
+                    className="w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-platzi-primary-background"
                   />
                 </div>
               </div>
@@ -89,7 +89,7 @@ const SignIn = () => {
                     type="checkbox"
                     name="remember"
                     id="remember"
-                    className="w-5 h-5 text-[#0ae98a] bg-white border border-gray-400 rounded focus:outline-none focus:ring-[#0ae98a] accent-[#0ae98a]"
+                    className="w-5 h-5 bg-white border border-gray-400 rounded text-platzi-primary-green focus:outline-none focus:ring-platzi-primary-green accent-platzi-primary-green"
                   />
                   <label htmlFor="remember" className="pl-4 font-light text-white">
                     Recordarme
@@ -99,7 +99,7 @@ const SignIn = () => {
               <div className="pt-6">
                 <button
                   type="submit"
-                  className="w-full px-8 py-4 text-white bg-[#4d1bd1] shadow-lg rounded-xl hover:bg-[#4d1bd1] focus:ring-4 focus:ring-red-100 focus:outline-none"
+                  className="w-full px-8 py-4 text-white shadow-lg bg-platzi-primary-purple rounded-xl hover:bg-platzi-primary-purple focus:ring-4 focus:ring-platzi-primary-purple focus:outline-none"
                 >
                   Iniciar Sesión
                 </button>
@@ -108,7 +108,7 @@ const SignIn = () => {
             <div className="pt-4">
               <div className="font-light text-center text-white">
                 ¿Aún no tienes una cuenta? {" "}
-                <a href="#" className="font-normal text-[#0ae98a] hover:text-[#0ae98a]">
+                <a href="#" className="font-normal text-platzi-primary-green hover:text-platzi-primary-green">
                   Crea una cuenta
                 </a>
               </div>
