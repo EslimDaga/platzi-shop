@@ -1,9 +1,19 @@
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
+import { resetError, signIn } from "../../../features/authentication/authenticationSlice";
+import { useEffect, useState } from "react";
+import { Toaster, toast } from "sonner"
+import { useDispatch, useSelector } from "react-redux";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid"
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 const SignIn = () => {
+
+  const dispatch = useDispatch();
+
+  const { error, loading } = useSelector(state => state.authentication);
+
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const formikSignIn = useFormik({
     initialValues: {
@@ -15,12 +25,33 @@ const SignIn = () => {
       password: Yup.string().required("La contraseña es obligatoria"),
     }),
     onSubmit: (formData) => {
-      console.log(formData);
+      dispatch(signIn(formData))
     }
   })
 
+  useEffect(() => {
+    dispatch(resetError())
+  }, [])
+
+  useEffect(() => {
+    error?.statusCode === 401 && setShowErrorAlert(true)
+  }, [error])
+
+  useEffect(() => {
+    showErrorAlert && error?.statusCode && toast.error("Correo electronico y/o contraseña incorrectos")
+  }, [showErrorAlert])
+
   return (
     <div className="flex justify-between min-h-screen font-sans bg-platzi-primary-background">
+      <Toaster
+        toastOptions={{
+          duration: 3000,
+          style: {
+            borderRadius: "0.75rem",
+          },
+        }}
+        richColors
+      />
       <div
         className="relative hidden w-1/2 bg-center bg-cover lg:block bg-platzi-primary-purple"
       >
@@ -71,14 +102,15 @@ const SignIn = () => {
                 <label htmlFor="email" className="font-light">Correo Electronico</label>
                 <div
                   className={
-                    `flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-platzi-primary-green hover:border-platzi-primary-green`
-                    + (formikSignIn.touched.email && formikSignIn.errors.email ? ' border-red-500 hover:border-red-500 focus-within:border-red-500' : '')
+                    "flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-platzi-primary-green hover:border-platzi-primary-green "
+                    + (formikSignIn.touched.email && formikSignIn.errors.email ? " border-red-500 hover:border-red-500 focus-within:border-red-500" : loading && " opacity-50 cursor-not-allowed hover:border-gray-400")
                   }
                 >
                   <div className="flex items-center justify-center pl-4">
                     <EnvelopeIcon className="w-6 h-6 pointer-events-none" />
                   </div>
                   <input
+                    disabled={loading}
                     id="email"
                     name="email"
                     type="text"
@@ -86,7 +118,9 @@ const SignIn = () => {
                     onBlur={formikSignIn.handleBlur}
                     value={formikSignIn.values.email}
                     placeholder="Ingresa tu correo electronico"
-                    className="w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-platzi-primary-background"
+                    className={
+                      "w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-platzi-primary-background " + (loading && " cursor-not-allowed")
+                    }
                   />
                 </div>
                 {
@@ -99,14 +133,15 @@ const SignIn = () => {
                 <label htmlFor="password" className="font-light">Contraseña</label>
                 <div
                   className={
-                    `flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-platzi-primary-green hover:border-platzi-primary-green`
-                    + (formikSignIn.touched.password && formikSignIn.errors.password ? ' border-red-500 hover:border-red-500 focus-within:border-red-500' : '')
+                    "flex items-center w-full mt-2 overflow-hidden transition-all border border-gray-400 rounded-xl focus-within:shadow-lg focus-within:border-platzi-primary-green hover:border-platzi-primary-green "
+                    + (formikSignIn.touched.password && formikSignIn.errors.password ? " border-red-500 hover:border-red-500 focus-within:border-red-500" : loading && " opacity-50 cursor-not-allowed hover:border-gray-400")
                   }
                 >
                   <div className="flex items-center justify-center pl-4">
                     <LockClosedIcon className="w-6 h-6 pointer-events-none" />
                   </div>
                   <input
+                    disabled={loading}
                     id="password"
                     name="password"
                     type="password"
@@ -114,7 +149,9 @@ const SignIn = () => {
                     onBlur={formikSignIn.handleBlur}
                     value={formikSignIn.values.password}
                     placeholder="Ingresa tu contraseña"
-                    className="w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-platzi-primary-background"
+                    className={
+                      "w-full p-4 font-light border-0 focus:outline-none focus:ring-0 bg-platzi-primary-background " + (loading && " cursor-not-allowed")
+                    }
                   />
                 </div>
                 {
@@ -126,9 +163,10 @@ const SignIn = () => {
               <div className="flex items-center justify-between pt-4">
                 <div className="flex items-center">
                   <input
-                    type="checkbox"
-                    name="remember"
+                    disabled={loading}
                     id="remember"
+                    name="remember"
+                    type="checkbox"
                     className="w-5 h-5 bg-white border border-gray-400 rounded text-platzi-primary-green focus:outline-none focus:ring-platzi-primary-green accent-platzi-primary-green"
                   />
                   <label htmlFor="remember" className="pl-4 font-light text-white">
@@ -138,10 +176,18 @@ const SignIn = () => {
               </div>
               <div className="pt-6">
                 <button
+                  disabled={loading}
                   type="submit"
-                  className="w-full px-8 py-4 text-white shadow-lg bg-platzi-primary-purple rounded-xl hover:bg-platzi-primary-purple focus:ring-4 focus:ring-platzi-primary-purple focus:outline-none"
+                  className={
+                    "flex items-center justify-center w-full px-8 py-4 text-white shadow-lg bg-platzi-primary-purple rounded-xl hover:bg-platzi-secondary-purple focus:ring-0 focus:outline-none" + (loading ? " opacity-50 cursor-not-allowed bg-platzi-secondary-purple" : "")
+                  }
                 >
-                  Iniciar Sesión
+                  {loading ? (
+                    <svg className="w-6 h-6 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : "Iniciar Sesión"}
                 </button>
               </div>
             </form>
