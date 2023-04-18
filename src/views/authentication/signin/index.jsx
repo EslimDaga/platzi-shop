@@ -59,6 +59,7 @@ const SignIn = () => {
             borderRadius: "0.75rem",
           },
         }}
+        position="top-right"
         richColors
       />
       <div
@@ -201,11 +202,6 @@ const SignIn = () => {
               </div>
             </form>
             <div className="pt-4">
-              <div className="font-light text-center text-white">
-                <Link to="/registrarse" className="font-normal text-platzi-primary-green hover:text-platzi-primary-green">
-                  Crea una cuenta
-                </Link>
-              </div>
               <div className="flex flex-wrap items-center justify-center pt-4 text-center gap-y-2">
                 <span className="text-sm text-gray-300 lg:text-base">© {new Date().getFullYear()} Platzi Shop. <br /> Todos los derechos reservados.</span>
               </div>
