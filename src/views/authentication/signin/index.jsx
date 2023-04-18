@@ -1,17 +1,18 @@
-import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { resetError, signIn } from "../../../features/authentication/authenticationSlice";
-import { useEffect, useState } from "react";
 import { Toaster, toast } from "sonner"
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getProfile, resetError, signIn } from "../../../features/authentication/authenticationSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid"
 import * as Yup from "yup";
 
 const SignIn = () => {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { error, loading } = useSelector(state => state.authentication);
+  const { user, error, loading } = useSelector(state => state.authentication);
 
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
@@ -25,7 +26,11 @@ const SignIn = () => {
       password: Yup.string().required("La contraseña es obligatoria"),
     }),
     onSubmit: (formData) => {
-      dispatch(signIn(formData))
+      dispatch(signIn(formData)).then((response) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          dispatch(getProfile());
+        }
+      })
     }
   })
 
@@ -40,6 +45,10 @@ const SignIn = () => {
   useEffect(() => {
     showErrorAlert && error?.statusCode && toast.error("Correo electronico y/o contraseña incorrectos")
   }, [showErrorAlert])
+
+  useEffect(() => {
+    user?.id && navigate("/")
+  }, [user])
 
   return (
     <div className="flex justify-between min-h-screen font-sans bg-platzi-primary-background">
