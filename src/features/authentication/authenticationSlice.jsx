@@ -1,4 +1,4 @@
-import { signInService } from "../../services/authentication/authenticationService";
+import { getProfileService, signInService } from "../../services/authentication/authenticationService";
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
 export const resetError = createAction("authentication/resetError");
@@ -15,10 +15,19 @@ export const signIn = createAsyncThunk(
   }
 )
 
+export const getProfile = createAsyncThunk(
+  "authentication/profile",
+  async () => {
+    const response = await getProfileService();
+    return response;
+  })
+
 const authenticationSlice = createSlice({
   name: "authentication",
   initialState: {
-    user: {},
+    user: {
+      access: ""
+    },
     error: {},
     loading: false,
   },
@@ -38,10 +47,23 @@ const authenticationSlice = createSlice({
     });
     builder.addCase(signIn.fulfilled, (state, action) => {
       state.loading = false;
-      state.user = action.payload;
-      localStorage.setItem("user", JSON.stringify(action.payload));
+      state.user.access = action.payload.access_token;
+      localStorage.setItem("user", JSON.stringify(state.user));
     });
     builder.addCase(signIn.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(getProfile.pending, (state) => {
+      state.error = {};
+      state.loading = true;
+    });
+    builder.addCase(getProfile.fulfilled, (state, action) => {
+      state.loading = false;
+      state.user = { ...state.user, ...action.payload };
+      localStorage.setItem("user", JSON.stringify(state.user));
+    });
+    builder.addCase(getProfile.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
