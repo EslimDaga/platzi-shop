@@ -1,4 +1,7 @@
-import { getProfileService, signInService } from "../../services/authentication/authenticationService";
+import {
+  getProfileService,
+  signInService,
+} from "../../services/authentication/authenticationService";
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
 export const resetError = createAction("authentication/resetError");
@@ -13,20 +16,21 @@ export const signIn = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
-)
+);
 
 export const getProfile = createAsyncThunk(
   "authentication/profile",
   async () => {
     const response = await getProfileService();
     return response;
-  })
+  }
+);
 
 const authenticationSlice = createSlice({
   name: "authentication",
   initialState: {
     user: {
-      access: ""
+      access: "",
     },
     error: {},
     loading: false,
@@ -35,9 +39,9 @@ const authenticationSlice = createSlice({
     signOut: (state) => {
       state.user = {};
       localStorage.removeItem("user");
-    }
+    },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder.addCase(resetError, (state) => {
       state.error = {};
     });
@@ -67,7 +71,7 @@ const authenticationSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-  }
+  },
 });
 
 export const { signOut } = authenticationSlice.actions;

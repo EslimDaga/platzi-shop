@@ -2,40 +2,46 @@ import {
   Bars3Icon,
   ChartPieIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
-import { getProducts } from '../../features/products/productsSlice'
-import { ChevronDownIcon, ShoppingCartIcon } from '@heroicons/react/20/solid'
-import { useDispatch, useSelector } from 'react-redux'
-import { Fragment, useEffect, useState } from 'react'
-import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
-
+} from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
+import { getProducts } from "../../features/products/productsSlice";
+import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/20/solid";
+import { useDispatch, useSelector } from "react-redux";
+import { Fragment, useEffect, useState } from "react";
+import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 const Home = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const dispatch = useDispatch();
 
-  const { products } = useSelector(state => ({
+  const { products } = useSelector((state) => ({
     ...state.products,
-  }))
+  }));
 
   useEffect(() => {
-    dispatch(getProducts())
-  }, [])
+    dispatch(getProducts());
+  }, []);
 
   return (
     <>
       <header className="bg-platzi-primary-background">
-        <nav className="mx-auto flex items-center justify-between p-6 px-8" aria-label="Global">
+        <nav
+          className="flex items-center justify-between p-6 px-8 mx-auto"
+          aria-label="Global"
+        >
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Plazi Shop</span>
-              <img className="h-8 w-auto" src="/images/logo_platzi.png" alt="logo_platzi" />
+              <img
+                className="w-auto h-8"
+                src="/images/logo_platzi.png"
+                alt="logo_platzi"
+              />
             </a>
           </div>
           <div className="flex lg:hidden">
@@ -45,7 +51,7 @@ const Home = () => {
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
-              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+              <Bars3Icon className="w-6 h-6" aria-hidden="true" />
             </button>
           </div>
           <Popover.Group className="hidden lg:flex lg:gap-x-12">
@@ -53,9 +59,12 @@ const Home = () => {
               Inicio
             </a>
             <Popover className="relative">
-              <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white outline-none">
+              <Popover.Button className="flex items-center text-sm font-semibold leading-6 text-white outline-none gap-x-1">
                 Categorías
-                <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                <ChevronDownIcon
+                  className="flex-none w-5 h-5 text-gray-400"
+                  aria-hidden="true"
+                />
               </Popover.Button>
               <Transition
                 as={Fragment}
@@ -66,20 +75,23 @@ const Home = () => {
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-1"
               >
-                <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-platzi-secondary-background shadow-lg ring-1 ring-gray-900/5">
+                <Popover.Panel className="absolute z-10 w-screen max-w-md mt-3 overflow-hidden shadow-lg -left-8 top-full rounded-3xl bg-platzi-secondary-background ring-1 ring-gray-900/5">
                   <div className="p-4">
-                    <div
-                      className="group relative flex items-center gap-x-6 rounded-xl p-4 text-sm leading-6 hover:bg-platzi-primary-background"
-                    >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-platzi-primary-background group-hover:bg-platzi-secondary-background">
-                        <ChartPieIcon className="h-6 w-6 text-gray-600 group-hover:text-platzi-primary-green" aria-hidden="true" />
+                    <div className="relative flex items-center p-4 text-sm leading-6 group gap-x-6 rounded-xl hover:bg-platzi-primary-background">
+                      <div className="flex items-center justify-center flex-none h-11 w-11 rounded-xl bg-platzi-primary-background group-hover:bg-platzi-secondary-background">
+                        <ChartPieIcon
+                          className="w-6 h-6 text-gray-600 group-hover:text-platzi-primary-green"
+                          aria-hidden="true"
+                        />
                       </div>
                       <div className="flex-auto">
                         <a href="#" className="block font-semibold text-white">
                           Analytics
                           <span className="absolute inset-0" />
                         </a>
-                        <p className="mt-1 text-gray-100">Get a better understanding of your traffic</p>
+                        <p className="mt-1 text-gray-100">
+                          Get a better understanding of your traffic
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -91,19 +103,27 @@ const Home = () => {
             </a>
           </Popover.Group>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link to="/iniciar-sesion" className="text-sm font-semibold leading-6 text-white">
+            <Link
+              to="/iniciar-sesion"
+              className="text-sm font-semibold leading-6 text-white"
+            >
               Iniciar sesión <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
         </nav>
-        <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+        <Dialog
+          as="div"
+          className="lg:hidden"
+          open={mobileMenuOpen}
+          onClose={setMobileMenuOpen}
+        >
           <div className="fixed inset-0 z-10" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-platzi-terciary-background px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full px-6 py-6 overflow-y-auto bg-platzi-terciary-background sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">platzi</span>
                 <img
-                  className="h-8 w-auto"
+                  className="w-auto h-8"
                   src="/images/logo_platzi.png"
                   alt="logo_platzi"
                 />
@@ -114,15 +134,15 @@ const Home = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                <XMarkIcon className="w-6 h-6" aria-hidden="true" />
               </button>
             </div>
-            <div className="mt-6 flow-root">
+            <div className="flow-root mt-6">
               <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
+                <div className="py-6 space-y-2">
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-platzi-secondary-background"
+                    className="block px-3 py-2 -mx-3 text-base font-semibold leading-7 text-white rounded-lg hover:bg-platzi-secondary-background"
                   >
                     Inicio
                   </a>
@@ -132,7 +152,10 @@ const Home = () => {
                         <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-platzi-secondary-background">
                           Productos
                           <ChevronDownIcon
-                            className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+                            className={classNames(
+                              open ? "rotate-180" : "",
+                              "h-5 w-5 flex-none"
+                            )}
                             aria-hidden="true"
                           />
                         </Disclosure.Button>
@@ -140,7 +163,7 @@ const Home = () => {
                           <Disclosure.Button
                             as="a"
                             href="#"
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-white hover:bg-platzi-secondary-background"
+                            className="block py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-white rounded-lg hover:bg-platzi-secondary-background"
                           >
                             Analytics
                           </Disclosure.Button>
@@ -150,7 +173,7 @@ const Home = () => {
                   </Disclosure>
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-platzi-secondary-background"
+                    className="block px-3 py-2 -mx-3 text-base font-semibold leading-7 text-white rounded-lg hover:bg-platzi-secondary-background"
                   >
                     Delivery
                   </a>
@@ -169,18 +192,28 @@ const Home = () => {
         </Dialog>
       </header>
       <section className="p-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product) => (
-            <div key={product.id} className="bg-platzi-primary-background rounded-xl p-6">
+            <div
+              key={product.id}
+              className="p-6 bg-platzi-primary-background rounded-xl"
+            >
               <div className="w-full h-60">
-                <img src={product.images.length > 0 ? product.images[0] : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"} className="object-cover w-full h-full rounded-xl" />
+                <img
+                  src={
+                    product.images.length > 0
+                      ? product.images[0]
+                      : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"
+                  }
+                  className="object-cover w-full h-full rounded-xl"
+                />
               </div>
-              <div className="pt-6 flex flex-col gap-6">
+              <div className="flex flex-col gap-6 pt-6">
                 <h3>{product.title}</h3>
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <span>S/ {product.price}</span>
-                  <button className="p-3 bg-platzi-secondary-background rounded-full hover:bg-platzi-primary-green">
-                    <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+                  <button className="p-3 rounded-full bg-platzi-secondary-background hover:bg-platzi-primary-green">
+                    <ShoppingCartIcon className="w-6 h-6" aria-hidden="true" />
                   </button>
                 </div>
               </div>
@@ -189,7 +222,7 @@ const Home = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

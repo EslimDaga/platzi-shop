@@ -1,5 +1,5 @@
 import { getProductsService } from "../../services/products/products";
-import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getProducts = createAsyncThunk(
   "products/getProducts",
@@ -7,7 +7,7 @@ export const getProducts = createAsyncThunk(
     const response = await getProductsService();
     return response;
   }
-)
+);
 
 const productsSlice = createSlice({
   name: "products",
@@ -16,7 +16,7 @@ const productsSlice = createSlice({
     error: {},
     loading: false,
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder.addCase(getProducts.pending, (state) => {
       state.error = {};
       state.loading = true;
@@ -29,7 +29,7 @@ const productsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-  }
+  },
 });
 
 export default productsSlice.reducer;

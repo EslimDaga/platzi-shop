@@ -16,13 +16,13 @@ jwtInterceptor.interceptors.request.use(
   (error) => {
     Promise.reject(error);
   }
-)
+);
 
 jwtInterceptor.interceptors.response.use(
-  response => {
+  (response) => {
     return response;
   },
-  async error => {
+  async (error) => {
     if (error.response.status === 401) {
       localStorage.removeItem("user");
       console.log("401");
