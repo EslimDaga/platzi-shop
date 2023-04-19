@@ -5,7 +5,8 @@
 @tailwind utilities;
 
 :root {
-  --background-color-global: #13161c;
+  --platzi-primary-background: #13161c;
+  --platzi-secondary-background: #20252f;
 }
 
 * {
@@ -14,9 +15,14 @@
     sans-serif;
 }
 
+body {
+  background-color: var(--platzi-secondary-background);
+  color: #fff;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   -webkit-text-fill-color: #fff;
-  -webkit-box-shadow: 0 0 0px 1000px --background-color-global inset;
+  -webkit-box-shadow: 0 0 0px 1000px --platzi-primary-background inset;
   transition: background-color 600000s 0s, color 600000s 0s;
 }
