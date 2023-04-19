@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 import { getProducts } from '../../features/products/productsSlice'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon, ShoppingCartIcon } from '@heroicons/react/20/solid'
 import { useDispatch, useSelector } from 'react-redux'
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
@@ -175,10 +175,14 @@ const Home = () => {
               <div className="w-full h-60">
                 <img src={product.images.length > 0 ? product.images[0] : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"} className="object-cover w-full h-full rounded-xl" />
               </div>
-              <div className="pt-6">
+              <div className="pt-6 flex flex-col gap-6">
                 <h3>{product.title}</h3>
-                <p>{product.description.length > 15 ? `${product.description.substring(0, 15)}...` : product.description}</p>
-                <span>{product.price}</span>
+                <div className="flex justify-between items-center">
+                  <span>S/ {product.price}</span>
+                  <button className="p-3 bg-platzi-secondary-background rounded-full hover:bg-platzi-primary-green">
+                    <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
