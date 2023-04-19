@@ -168,8 +168,21 @@ const Home = () => {
           </Dialog.Panel>
         </Dialog>
       </header>
-      <section>
-
+      <section className="p-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {products.map((product) => (
+            <div key={product.id} className="bg-platzi-primary-background rounded-xl p-6">
+              <div className="w-full h-60">
+                <img src={product.images.length > 0 ? product.images[0] : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"} className="object-cover w-full h-full rounded-xl" />
+              </div>
+              <div className="pt-6">
+                <h3>{product.title}</h3>
+                <p>{product.description.length > 15 ? `${product.description.substring(0, 15)}...` : product.description}</p>
+                <span>{product.price}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
     </>
   )
