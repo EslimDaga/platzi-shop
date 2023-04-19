@@ -1,5 +1,5 @@
-import axios from "axios";
 import { API_URL } from "../../constants";
+import axios from "axios";
 import jwtInterceptor from "../jwtInterceptor";
 
 export const signInService = async (credentials) => {
