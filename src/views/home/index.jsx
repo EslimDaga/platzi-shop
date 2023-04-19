@@ -5,10 +5,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { getProducts } from "../../features/products/productsSlice";
-import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/20/solid";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
+import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/20/solid";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -195,17 +197,19 @@ const Home = () => {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product) => (
             <div
-              key={product.id}
               className="p-6 bg-platzi-primary-background rounded-xl"
+              key={product.id}
             >
               <div className="w-full h-60">
-                <img
-                  src={
-                    product.images.length > 0
-                      ? product.images[0]
-                      : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"
-                  }
+                <LazyLoadImage
                   className="object-cover w-full h-full rounded-xl"
+                  effect="blur"
+                  alt={product.images.length > 0
+                    ? product.images[0]
+                    : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"}
+                  src={product.images.length > 0
+                    ? product.images[0]
+                    : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"}
                 />
               </div>
               <div className="flex flex-col gap-6 pt-6">
