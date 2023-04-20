@@ -37,6 +37,9 @@ const Home = () => {
     setTimeout(() => {
       setBagTotal(bagProducts.length);
     }, 500);
+    //If bagProducts change, change price
+
+
   }, [bagProducts]);
 
   return (
@@ -267,7 +270,7 @@ const Home = () => {
                             <div className="ml-3 flex h-7 items-center">
                               <button
                                 type="button"
-                                className="-m-2 p-2 text-gray-200 hover:text-gray-300"
+                                className="-m-2 p-2 text-gray-200 hover:text-gray-300 outline-none"
                                 onClick={() => setOpenBag(false)}
                               >
                                 <span className="sr-only">Close panel</span>
@@ -305,7 +308,23 @@ const Home = () => {
                                           </p>
                                         </div>
                                         <div className="flex flex-1 items-end justify-between text-sm">
-                                          <p className="text-gray-300">Cantidad: {product.quantity}</p>
+                                          <div className="flex items-center justify-center gap-2">
+                                            <label className="text-gray-300">Cantidad: </label>
+                                            <input type="number" value={product.quantity} onChange={
+                                              (e) => {
+                                                const newBagProducts = bagProducts.map((bagProduct) => {
+                                                  if (bagProduct.id === product.id) {
+                                                    return {
+                                                      ...bagProduct,
+                                                      quantity: Number(e.target.value),
+                                                    };
+                                                  }
+                                                  return bagProduct;
+                                                });
+                                                setBagProducts(newBagProducts);
+                                              }
+                                            } className="bg-platzi-terciary-background w-16 px-2 py-2 rounded-lg outline-none" />
+                                          </div>
                                           <div className="flex">
                                             <button
                                               type="button"
@@ -339,7 +358,7 @@ const Home = () => {
                             <p>Subtotal</p>
                             <p>{
                               bagProducts.length > 0
-                                ? "S/ " + bagProducts.reduce((acc, product) => acc + product.price, 0)
+                                ? "S/ " + bagProducts.reduce((acc, product) => acc + (product.price * product.quantity), 0)
                                 : "S/ " + 0
                             }</p>
                           </div>
