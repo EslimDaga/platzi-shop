@@ -19,7 +19,7 @@ function classNames(...classes) {
 const Home = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openBag, setOpenBag] = useState(false);
-  const [bagAmount, setBagAmount] = useState(0);
+  const [bagProducts, setBagProducts] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -58,8 +58,8 @@ const Home = () => {
               <div></div>
               <div className="flex flex-row-reverse w-full ml-2">
                 <div slot="icon" className="relative">
-                  {bagAmount > 0 && (
-                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagAmount}</div>
+                  {bagProducts.length > 0 && (
+                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagProducts.length}</div>
                   )}
                   <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
                 </div>
@@ -136,8 +136,8 @@ const Home = () => {
               <div></div>
               <div className="flex flex-row-reverse w-full ml-2">
                 <div slot="icon" className="relative">
-                  {bagAmount > 0 && (
-                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagAmount}</div>
+                  {bagProducts.length > 0 && (
+                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagProducts.length}</div>
                   )}
                   <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
                 </div>
@@ -270,37 +270,57 @@ const Home = () => {
                           <div className="mt-8">
                             <div className="flow-root">
                               <ul role="list" className="-my-6 divide-y divide-platzi-terciary-background">
-                                <li className="flex py-6">
-                                  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-platzi-terciary-background">
-                                    <img
-                                      src="https://picsum.photos/640/640?r=8671"
-                                      alt="https://picsum.photos/640/640?r=8671"
-                                      className="h-full w-full object-cover object-center"
-                                    />
-                                  </div>
-                                  <div className="ml-4 flex flex-1 flex-col">
-                                    <div>
-                                      <div className="flex justify-between text-base font-medium text-white">
-                                        <h3>
-                                          <a href="#">Throwback Hip Bag</a>
-                                        </h3>
-                                        <p className="ml-4">S/ 90.00</p>
+                                {bagProducts.length > 0 ? (
+                                  bagProducts.map((product) => (
+                                    <li key={product.id} className="flex py-6">
+                                      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-platzi-terciary-background">
+                                        <img
+                                          className="h-full w-full object-cover object-center"
+                                          alt={product.images.length > 0
+                                            ? product.images[0]
+                                            : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"}
+                                          src={product.images.length > 0
+                                            ? product.images[0]
+                                            : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"}
+                                        />
                                       </div>
-                                      <p className="mt-1 text-sm text-gray-500">Salmon</p>
-                                    </div>
-                                    <div className="flex flex-1 items-end justify-between text-sm">
-                                      <p className="text-gray-500">Qty 1</p>
-                                      <div className="flex">
-                                        <button
-                                          type="button"
-                                          className="font-medium text-indigo-600 hover:text-indigo-500"
-                                        >
-                                          Eliminar
-                                        </button>
+                                      <div className="ml-4 flex flex-1 flex-col">
+                                        <div>
+                                          <div className="flex justify-between text-base font-medium text-white">
+                                            <h3>
+                                              <a href="#">{product.title.length > 13 ? `${product.title.substring(0, 13)}...` : product.title}</a>
+                                            </h3>
+                                            <p className="ml-4">S/ {product.price}</p>
+                                          </div>
+                                          <p className="mt-1 text-sm text-gray-500">
+                                            {product.category.name.charAt(0).toUpperCase() + product.category.name.slice(1)}
+                                          </p>
+                                        </div>
+                                        <div className="flex flex-1 items-end justify-between text-sm">
+                                          <p className="text-gray-500">Cant. {Math.floor(Math.random() * 50) + 1}</p>
+                                          <div className="flex">
+                                            <button
+                                              type="button"
+                                              className="font-medium text-indigo-600 hover:text-indigo-500"
+                                              onClick={() => {
+                                                const newBagProducts = bagProducts.filter((bagProduct) => bagProduct.id !== product.id);
+                                                setBagProducts(newBagProducts);
+                                              }}
+                                            >
+                                              Eliminar
+                                            </button>
+                                          </div>
+                                        </div>
                                       </div>
+                                    </li>
+                                  ))
+                                ) : (
+                                  <li className="flex py-6">
+                                    <div className="flex-1 flex items-center justify-center">
+                                      <p className="text-sm font-medium text-white">No hay productos en el carrito</p>
                                     </div>
-                                  </div>
-                                </li>
+                                  </li>
+                                )}
                               </ul>
                             </div>
                           </div>
@@ -308,7 +328,11 @@ const Home = () => {
                         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                           <div className="flex justify-between text-base font-medium text-white">
                             <p>Subtotal</p>
-                            <p>$262.00</p>
+                            <p>{
+                              bagProducts.length > 0
+                                ? "S/ " + bagProducts.reduce((acc, product) => acc + product.price, 0)
+                                : "S/ " + 0
+                            }</p>
                           </div>
                           <p className="mt-0.5 text-sm text-gray-500">Envío e impuestos calculados al finalizar la compra.</p>
                           <div className="mt-6">
@@ -341,7 +365,7 @@ const Home = () => {
             </div>
           </Dialog>
         </Transition.Root>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product) => (
             <div
               className="p-6 bg-platzi-primary-background rounded-xl"
@@ -371,7 +395,7 @@ const Home = () => {
                 <button
                   onClick={
                     () => {
-                      setBagAmount(bagAmount + 1);
+                      setBagProducts([...bagProducts, product]);
                     }
                   } className="flex items-center justify-center gap-2 p-3 rounded-lg bg-platzi-secondary-background hover:bg-platzi-primary-purple">
                   Agregar al carrito <ShoppingCartIcon className="w-5 h-5 text-white" />
