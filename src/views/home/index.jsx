@@ -18,6 +18,7 @@ function classNames(...classes) {
 
 const Home = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openBag, setOpenBag] = useState(false);
   const [bagAmount, setBagAmount] = useState(0);
 
   const dispatch = useDispatch();
@@ -48,7 +49,12 @@ const Home = () => {
             </a>
           </div>
           <div className="flex lg:hidden">
-            <div className="flex flex-row p-2 px-4 truncate rounded cursor-pointer">
+            <div
+              className="flex flex-row p-2 px-4 truncate rounded cursor-pointer"
+              onClick={() => {
+                setOpenBag(!openBag);
+              }}
+            >
               <div></div>
               <div className="flex flex-row-reverse w-full ml-2">
                 <div slot="icon" className="relative">
@@ -123,7 +129,10 @@ const Home = () => {
             >
               Iniciar sesión <span aria-hidden="true">&rarr;</span>
             </Link>
-            <div className="flex flex-row p-2 px-4 truncate rounded cursor-pointer">
+            <div
+              className="flex flex-row p-2 px-4 truncate rounded cursor-pointer"
+              onClick={() => { setOpenBag(!openBag); }}
+            >
               <div></div>
               <div className="flex flex-row-reverse w-full ml-2">
                 <div slot="icon" className="relative">
@@ -217,6 +226,121 @@ const Home = () => {
         </Dialog>
       </header>
       <section className="px-8 py-5 mt-20">
+        <Transition.Root show={openBag} as={Fragment}>
+          <Dialog as="div" className="relative z-50" onClose={setOpenBag}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-in-out duration-500"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in-out duration-500"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-platzi-terciary-background bg-opacity-75 transition-opacity" />
+            </Transition.Child>
+            <div className="fixed inset-0 overflow-hidden">
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="transform transition ease-in-out duration-500 sm:duration-700"
+                    enterFrom="translate-x-full"
+                    enterTo="translate-x-0"
+                    leave="transform transition ease-in-out duration-500 sm:duration-700"
+                    leaveFrom="translate-x-0"
+                    leaveTo="translate-x-full"
+                  >
+                    <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                      <div className="flex h-full flex-col overflow-y-scroll bg-platzi-primary-background shadow-xl">
+                        <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                          <div className="flex items-start justify-between">
+                            <Dialog.Title className="text-lg font-medium text-white">Carrito</Dialog.Title>
+                            <div className="ml-3 flex h-7 items-center">
+                              <button
+                                type="button"
+                                className="-m-2 p-2 text-gray-200 hover:text-gray-300"
+                                onClick={() => setOpenBag(false)}
+                              >
+                                <span className="sr-only">Close panel</span>
+                                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                              </button>
+                            </div>
+                          </div>
+                          <div className="mt-8">
+                            <div className="flow-root">
+                              <ul role="list" className="-my-6 divide-y divide-platzi-terciary-background">
+                                <li className="flex py-6">
+                                  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-platzi-terciary-background">
+                                    <img
+                                      src="https://picsum.photos/640/640?r=8671"
+                                      alt="https://picsum.photos/640/640?r=8671"
+                                      className="h-full w-full object-cover object-center"
+                                    />
+                                  </div>
+                                  <div className="ml-4 flex flex-1 flex-col">
+                                    <div>
+                                      <div className="flex justify-between text-base font-medium text-white">
+                                        <h3>
+                                          <a href="#">Throwback Hip Bag</a>
+                                        </h3>
+                                        <p className="ml-4">S/ 90.00</p>
+                                      </div>
+                                      <p className="mt-1 text-sm text-gray-500">Salmon</p>
+                                    </div>
+                                    <div className="flex flex-1 items-end justify-between text-sm">
+                                      <p className="text-gray-500">Qty 1</p>
+                                      <div className="flex">
+                                        <button
+                                          type="button"
+                                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                                        >
+                                          Eliminar
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+                          <div className="flex justify-between text-base font-medium text-white">
+                            <p>Subtotal</p>
+                            <p>$262.00</p>
+                          </div>
+                          <p className="mt-0.5 text-sm text-gray-500">Envío e impuestos calculados al finalizar la compra.</p>
+                          <div className="mt-6">
+                            <a
+                              href="#"
+                              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                            >
+                              Proceder al pago
+                            </a>
+                          </div>
+                          <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                            <p>
+                              o {""}
+                              <button
+                                type="button"
+                                className="font-medium text-indigo-600 hover:text-indigo-500"
+                                onClick={() => setOpenBag(false)}
+                              >
+                                Seguir comprando
+                                <span aria-hidden="true"> &rarr;</span>
+                              </button>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </Dialog.Panel>
+                  </Transition.Child>
+                </div>
+              </div>
+            </div>
+          </Dialog>
+        </Transition.Root>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.map((product) => (
             <div
