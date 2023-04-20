@@ -8,7 +8,7 @@ import { getProducts } from "../../features/products/productsSlice";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
-import { ChevronDownIcon, ShoppingBagIcon, ShoppingCartIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon, HeartIcon, ShoppingBagIcon, ShoppingCartIcon } from "@heroicons/react/20/solid";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -217,7 +217,7 @@ const Home = () => {
         </Dialog>
       </header>
       <section className="px-8 py-5 mt-20">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.map((product) => (
             <div
               className="p-6 bg-platzi-primary-background rounded-xl"
@@ -235,14 +235,23 @@ const Home = () => {
                     : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"}
                 />
               </div>
-              <div className="flex flex-col gap-6 pt-6">
-                <h3 className="text-white">{product.title}</h3>
+              <div className="flex flex-col gap-4 pt-6">
                 <div className="flex items-center justify-between">
-                  <span>S/ {product.price}</span>
-                  <button className="p-3 rounded-full bg-platzi-secondary-background hover:bg-platzi-primary-green">
-                    <ShoppingCartIcon className="w-6 h-6" aria-hidden="true" />
-                  </button>
+                  <div>
+                    <p className="font-semibold text-gray-300">{product.category.name}</p>
+                    <h3 className="font-bold text-white">{product.title.length > 13 ? `${product.title.substring(0, 13)}...` : product.title}</h3>
+                  </div>
+                  <HeartIcon className="w-6 h-6 text-gray-400" />
                 </div>
+                <span className="font-semibold text-platzi-primary-green">S/ {product.price}</span>
+                <button
+                  onClick={
+                    () => {
+                      setBagAmount(bagAmount + 1);
+                    }
+                  } className="flex items-center justify-center gap-2 p-3 rounded-lg bg-platzi-secondary-background hover:bg-platzi-primary-purple">
+                  Agregar al carrito <ShoppingCartIcon className="w-5 h-5 text-white" />
+                </button>
               </div>
             </div>
           ))}
