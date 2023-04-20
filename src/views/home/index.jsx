@@ -51,7 +51,7 @@ const Home = () => {
               <div></div>
               <div className="flex flex-row-reverse w-full ml-2">
                 <div slot="icon" className="relative">
-                  <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 py-0 -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">3</div>
+                  <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">3</div>
                   <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
                 </div>
               </div>
@@ -124,7 +124,7 @@ const Home = () => {
               <div></div>
               <div className="flex flex-row-reverse w-full ml-2">
                 <div slot="icon" className="relative">
-                  <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 py-0 -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">3</div>
+                  <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 py-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">3</div>
                   <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
                 </div>
               </div>
@@ -138,7 +138,7 @@ const Home = () => {
           onClose={setMobileMenuOpen}
         >
           <div className="fixed inset-0 z-10" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full px-6 py-6 overflow-y-auto bg-platzi-terciary-background sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full px-6 py-6 overflow-y-auto bg-platzi-terciary-background sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">platzi</span>
@@ -201,7 +201,7 @@ const Home = () => {
                 <div className="py-6">
                   <Link
                     to="/iniciar-sesion"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-platzi-secondary-background"
+                    className="-mx-3 block bg-platzi-primary-purple rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-platzi-secondary-background"
                   >
                     Iniciar sesión
                   </Link>
