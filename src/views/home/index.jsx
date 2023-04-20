@@ -8,7 +8,7 @@ import { getProducts } from "../../features/products/productsSlice";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
-import { ChevronDownIcon, HeartIcon, ShoppingBagIcon, ShoppingCartIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon, HeartIcon, ShoppingBagIcon, ShoppingCartIcon, TrashIcon } from "@heroicons/react/20/solid";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -17,9 +17,11 @@ function classNames(...classes) {
 }
 
 const Home = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openBag, setOpenBag] = useState(false);
+  const [bagTotal, setBagTotal] = useState(0);
   const [bagProducts, setBagProducts] = useState([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loadingProductInBag, setLoadingProductInBag] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -30,6 +32,12 @@ const Home = () => {
   useEffect(() => {
     dispatch(getProducts());
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setBagTotal(bagProducts.length);
+    }, 500);
+  }, [bagProducts]);
 
   return (
     <>
@@ -58,8 +66,8 @@ const Home = () => {
               <div></div>
               <div className="flex flex-row-reverse w-full ml-2">
                 <div slot="icon" className="relative">
-                  {bagProducts.length > 0 && (
-                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagProducts.length}</div>
+                  {bagTotal > 0 && (
+                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagTotal}</div>
                   )}
                   <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
                 </div>
@@ -136,8 +144,8 @@ const Home = () => {
               <div></div>
               <div className="flex flex-row-reverse w-full ml-2">
                 <div slot="icon" className="relative">
-                  {bagProducts.length > 0 && (
-                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagProducts.length}</div>
+                  {bagTotal > 0 && (
+                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagTotal}</div>
                   )}
                   <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
                 </div>
@@ -252,7 +260,7 @@ const Home = () => {
                     leaveTo="translate-x-full"
                   >
                     <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                      <div className="flex h-full flex-col overflow-y-scroll bg-platzi-primary-background shadow-xl">
+                      <div className="flex h-full flex-col bg-platzi-primary-background shadow-xl">
                         <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                           <div className="flex items-start justify-between">
                             <Dialog.Title className="text-lg font-medium text-white">Carrito</Dialog.Title>
@@ -272,7 +280,7 @@ const Home = () => {
                               <ul role="list" className="-my-6 divide-y divide-platzi-terciary-background">
                                 {bagProducts.length > 0 ? (
                                   bagProducts.map((product) => (
-                                    <li key={product.id} className="flex py-6">
+                                    <li key={product.id} className="py-6 flex">
                                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-platzi-terciary-background">
                                         <img
                                           className="h-full w-full object-cover object-center"
@@ -290,24 +298,25 @@ const Home = () => {
                                             <h3>
                                               <a href="#">{product.title.length > 13 ? `${product.title.substring(0, 13)}...` : product.title}</a>
                                             </h3>
-                                            <p className="ml-4">S/ {product.price}</p>
+                                            <p className="ml-4">S/ {product.quantity > 1 ? product.price * product.quantity : product.price}</p>
                                           </div>
                                           <p className="mt-1 text-sm text-gray-500">
                                             {product.category.name.charAt(0).toUpperCase() + product.category.name.slice(1)}
                                           </p>
                                         </div>
                                         <div className="flex flex-1 items-end justify-between text-sm">
-                                          <p className="text-gray-500">Cant. {Math.floor(Math.random() * 50) + 1}</p>
+                                          <p className="text-gray-300">Cantidad: {product.quantity}</p>
                                           <div className="flex">
                                             <button
                                               type="button"
-                                              className="font-medium text-indigo-600 hover:text-indigo-500"
+                                              className="font-medium bg-platzi-primary-purple hover:bg-platzi-secondary-purple text-white px-4 py-3 rounded-md flex items-center justify-center"
                                               onClick={() => {
                                                 const newBagProducts = bagProducts.filter((bagProduct) => bagProduct.id !== product.id);
                                                 setBagProducts(newBagProducts);
                                               }}
                                             >
                                               Eliminar
+                                              <TrashIcon className="h-5 w-5 ml-2" aria-hidden="true" />
                                             </button>
                                           </div>
                                         </div>
@@ -325,7 +334,7 @@ const Home = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+                        <div className="border-t border-platzi-terciary-background px-4 py-6 sm:px-6">
                           <div className="flex justify-between text-base font-medium text-white">
                             <p>Subtotal</p>
                             <p>{
@@ -391,20 +400,71 @@ const Home = () => {
                   </div>
                   <HeartIcon className="w-6 h-6 text-gray-400" />
                 </div>
-                <span className="font-semibold text-platzi-primary-green">S/ {product.price}</span>
+                <span className="font-bold text-platzi-primary-green text-lg">S/ {product.price}</span>
                 <button
                   onClick={
                     () => {
-                      setBagProducts([...bagProducts, product]);
+                      setLoadingProductInBag(true);
+                      setTimeout(() => {
+                        setLoadingProductInBag(false);
+                      }, 500);
+                      if (bagProducts.length > 0) {
+                        const productInBag = bagProducts.find((bagProduct) => bagProduct.id === product.id);
+                        if (productInBag) {
+                          const newBagProducts = bagProducts.map((bagProduct) => {
+                            if (bagProduct.id === product.id) {
+                              return {
+                                ...bagProduct,
+                                quantity: bagProduct.quantity + 1,
+                              };
+                            }
+                            return bagProduct;
+                          });
+                          setBagProducts(newBagProducts);
+                        } else {
+                          setBagProducts([...bagProducts, { ...product, quantity: 1 }]);
+                        }
+                      } else {
+                        setBagProducts([{ ...product, quantity: 1 }]);
+                      }
                     }
-                  } className="flex items-center justify-center gap-2 p-3 rounded-lg bg-platzi-secondary-background hover:bg-platzi-primary-purple">
-                  Agregar al carrito <ShoppingCartIcon className="w-5 h-5 text-white" />
+                  } className="flex items-center justify-center gap-2 p-3 rounded-lg bg-platzi-secondary-background hover:bg-platzi-primary-purple font-medium">
+                  {
+                    loadingProductInBag && product.id === bagProducts[bagProducts.length - 1]?.id
+                      ?
+                      (
+                        <svg
+                          className="w-6 h-6 mr-3 -ml-1 text-white animate-spin"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                      )
+                      :
+                      <>
+                        Agregar <ShoppingCartIcon className="w-6 h-6 text-white" />
+                      </>
+                  }
                 </button>
               </div>
             </div>
           ))}
         </div>
-      </section>
+      </section >
     </>
   );
 };
