@@ -26,3 +26,11 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px --platzi-primary-background inset;
   transition: background-color 600000s 0s, color 600000s 0s;
 }
+
+.lazy-load-image-background.blur.lazy-load-image-loaded {
+  filter: blur(0);
+  transition: filter 0.3s;
+  height: inherit;
+  width: 100%;
+  object-fit: cover;
+}
