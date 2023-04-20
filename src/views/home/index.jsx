@@ -18,6 +18,7 @@ function classNames(...classes) {
 
 const Home = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [bagAmount, setBagAmount] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -51,7 +52,9 @@ const Home = () => {
               <div></div>
               <div className="flex flex-row-reverse w-full ml-2">
                 <div slot="icon" className="relative">
-                  <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">3</div>
+                  {bagAmount > 0 && (
+                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagAmount}</div>
+                  )}
                   <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
                 </div>
               </div>
@@ -124,7 +127,9 @@ const Home = () => {
               <div></div>
               <div className="flex flex-row-reverse w-full ml-2">
                 <div slot="icon" className="relative">
-                  <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">3</div>
+                  {bagAmount > 0 && (
+                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagAmount}</div>
+                  )}
                   <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
                 </div>
               </div>
