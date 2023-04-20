@@ -8,7 +8,7 @@ import { getProducts } from "../../features/products/productsSlice";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
-import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon, ShoppingBagIcon, ShoppingCartIcon } from "@heroicons/react/20/solid";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -31,9 +31,9 @@ const Home = () => {
 
   return (
     <>
-      <header className="bg-platzi-primary-background">
+      <header>
         <nav
-          className="flex items-center justify-between p-6 px-8 mx-auto"
+          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between w-full p-5 px-8 mx-auto bg-platzi-primary-background"
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
@@ -47,6 +47,15 @@ const Home = () => {
             </a>
           </div>
           <div className="flex lg:hidden">
+            <div className="flex flex-row p-2 px-4 truncate rounded cursor-pointer">
+              <div></div>
+              <div className="flex flex-row-reverse w-full ml-2">
+                <div slot="icon" className="relative">
+                  <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 py-0 -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">3</div>
+                  <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
+                </div>
+              </div>
+            </div>
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
@@ -104,13 +113,22 @@ const Home = () => {
               Delivery
             </a>
           </Popover.Group>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="items-center hidden lg:flex lg:flex-1 lg:justify-end">
             <Link
               to="/iniciar-sesion"
               className="text-sm font-semibold leading-6 text-white"
             >
               Iniciar sesión <span aria-hidden="true">&rarr;</span>
             </Link>
+            <div className="flex flex-row p-2 px-4 truncate rounded cursor-pointer">
+              <div></div>
+              <div className="flex flex-row-reverse w-full ml-2">
+                <div slot="icon" className="relative">
+                  <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 py-0 -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">3</div>
+                  <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
+                </div>
+              </div>
+            </div>
           </div>
         </nav>
         <Dialog
@@ -193,7 +211,7 @@ const Home = () => {
           </Dialog.Panel>
         </Dialog>
       </header>
-      <section className="p-8">
+      <section className="px-8 py-5 mt-20">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product) => (
             <div
