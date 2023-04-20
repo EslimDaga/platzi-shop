@@ -200,7 +200,7 @@ const Home = () => {
               className="p-6 bg-platzi-primary-background rounded-xl"
               key={product.id}
             >
-              <div className="w-full h-60">
+              <div className="w-full h-64">
                 <LazyLoadImage
                   className="object-cover w-full h-full rounded-xl"
                   effect="blur"
@@ -213,7 +213,7 @@ const Home = () => {
                 />
               </div>
               <div className="flex flex-col gap-6 pt-6">
-                <h3>{product.title}</h3>
+                <h3 className="text-white">{product.title}</h3>
                 <div className="flex items-center justify-between">
                   <span>S/ {product.price}</span>
                   <button className="p-3 rounded-full bg-platzi-secondary-background hover:bg-platzi-primary-green">
