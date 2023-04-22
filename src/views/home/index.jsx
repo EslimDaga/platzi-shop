@@ -248,11 +248,11 @@ const Home = () => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 bg-platzi-terciary-background bg-opacity-75 transition-opacity" />
+              <div className="fixed inset-0 transition-opacity bg-opacity-75 bg-platzi-terciary-background" />
             </Transition.Child>
             <div className="fixed inset-0 overflow-hidden">
               <div className="absolute inset-0 overflow-hidden">
-                <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <div className="fixed inset-y-0 right-0 flex max-w-full pl-10 pointer-events-none">
                   <Transition.Child
                     as={Fragment}
                     enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -262,19 +262,19 @@ const Home = () => {
                     leaveFrom="translate-x-0"
                     leaveTo="translate-x-full"
                   >
-                    <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                      <div className="flex h-full flex-col bg-platzi-primary-background shadow-xl">
-                        <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                    <Dialog.Panel className="w-screen max-w-md pointer-events-auto">
+                      <div className="flex flex-col h-full shadow-xl bg-platzi-primary-background">
+                        <div className="flex-1 px-4 py-6 overflow-y-auto sm:px-6">
                           <div className="flex items-start justify-between">
                             <Dialog.Title className="text-lg font-medium text-white">Carrito</Dialog.Title>
-                            <div className="ml-3 flex h-7 items-center">
+                            <div className="flex items-center ml-3 h-7">
                               <button
                                 type="button"
-                                className="-m-2 p-2 text-gray-200 hover:text-gray-300 outline-none"
+                                className="p-2 -m-2 text-gray-200 outline-none hover:text-gray-300"
                                 onClick={() => setOpenBag(false)}
                               >
                                 <span className="sr-only">Close panel</span>
-                                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                                <XMarkIcon className="w-6 h-6" aria-hidden="true" />
                               </button>
                             </div>
                           </div>
@@ -283,10 +283,10 @@ const Home = () => {
                               <ul role="list" className="-my-6 divide-y divide-platzi-terciary-background">
                                 {bagProducts.length > 0 ? (
                                   bagProducts.map((product) => (
-                                    <li key={product.id} className="py-6 flex">
-                                      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-platzi-terciary-background">
+                                    <li key={product.id} className="flex py-6">
+                                      <div className="flex-shrink-0 w-24 h-24 overflow-hidden border rounded-md border-platzi-terciary-background">
                                         <img
-                                          className="h-full w-full object-cover object-center"
+                                          className="object-cover object-center w-full h-full"
                                           alt={product.images.length > 0
                                             ? product.images[0]
                                             : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"}
@@ -295,7 +295,7 @@ const Home = () => {
                                             : "https://xhibiter-nextjs.netlify.app/_next/image?url=%2Fimages%2Fproducts%2Fitem_19.jpg&w=1920&q=75"}
                                         />
                                       </div>
-                                      <div className="ml-4 flex flex-1 flex-col">
+                                      <div className="flex flex-col flex-1 ml-4">
                                         <div>
                                           <div className="flex justify-between text-base font-medium text-white">
                                             <h3>
@@ -307,7 +307,7 @@ const Home = () => {
                                             {product.category.name.charAt(0).toUpperCase() + product.category.name.slice(1)}
                                           </p>
                                         </div>
-                                        <div className="flex flex-1 items-end justify-between text-sm">
+                                        <div className="flex items-end justify-between flex-1 text-sm">
                                           <div className="flex items-center justify-center gap-2">
                                             <label className="text-gray-300">Cantidad: </label>
                                             <input type="number" value={product.quantity} onChange={
@@ -323,19 +323,19 @@ const Home = () => {
                                                 });
                                                 setBagProducts(newBagProducts);
                                               }
-                                            } className="bg-platzi-terciary-background w-16 px-2 py-2 rounded-lg outline-none" />
+                                            } className="w-16 px-2 py-2 rounded-lg outline-none bg-platzi-terciary-background" />
                                           </div>
                                           <div className="flex">
                                             <button
                                               type="button"
-                                              className="font-medium bg-platzi-primary-purple hover:bg-platzi-secondary-purple text-white px-4 py-3 rounded-md flex items-center justify-center"
+                                              className="flex items-center justify-center px-4 py-3 font-medium text-white rounded-md bg-platzi-primary-purple hover:bg-platzi-secondary-purple"
                                               onClick={() => {
                                                 const newBagProducts = bagProducts.filter((bagProduct) => bagProduct.id !== product.id);
                                                 setBagProducts(newBagProducts);
                                               }}
                                             >
                                               Eliminar
-                                              <TrashIcon className="h-5 w-5 ml-2" aria-hidden="true" />
+                                              <TrashIcon className="w-5 h-5 ml-2" aria-hidden="true" />
                                             </button>
                                           </div>
                                         </div>
@@ -344,7 +344,7 @@ const Home = () => {
                                   ))
                                 ) : (
                                   <li className="flex py-6">
-                                    <div className="flex-1 flex items-center justify-center">
+                                    <div className="flex items-center justify-center flex-1">
                                       <p className="text-sm font-medium text-white">No hay productos en el carrito</p>
                                     </div>
                                   </li>
@@ -353,7 +353,7 @@ const Home = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="border-t border-platzi-terciary-background px-4 py-6 sm:px-6">
+                        <div className="px-4 py-6 border-t border-platzi-terciary-background sm:px-6">
                           <div className="flex justify-between text-base font-medium text-white">
                             <p>Subtotal</p>
                             <p>{
@@ -366,12 +366,12 @@ const Home = () => {
                           <div className="mt-6">
                             <a
                               href="#"
-                              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                              className="flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700"
                             >
                               Proceder al pago
                             </a>
                           </div>
-                          <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                          <div className="flex justify-center mt-6 text-sm text-center text-gray-500">
                             <p>
                               o {""}
                               <button
@@ -419,35 +419,31 @@ const Home = () => {
                   </div>
                   <HeartIcon className="w-6 h-6 text-gray-400" />
                 </div>
-                <span className="font-bold text-platzi-primary-green text-lg">S/ {product.price}</span>
+                <span className="text-lg font-bold text-platzi-primary-green">S/ {product.price}</span>
                 <button
                   onClick={
                     () => {
-                      setLoadingProductInBag(true);
                       setTimeout(() => {
                         setLoadingProductInBag(false);
                       }, 500);
-                      if (bagProducts.length > 0) {
-                        const productInBag = bagProducts.find((bagProduct) => bagProduct.id === product.id);
-                        if (productInBag) {
-                          const newBagProducts = bagProducts.map((bagProduct) => {
-                            if (bagProduct.id === product.id) {
-                              return {
-                                ...bagProduct,
-                                quantity: bagProduct.quantity + 1,
-                              };
-                            }
-                            return bagProduct;
-                          });
-                          setBagProducts(newBagProducts);
-                        } else {
-                          setBagProducts([...bagProducts, { ...product, quantity: 1 }]);
-                        }
+                      if (bagProducts.find((bagProduct) => bagProduct.id === product.id)) {
+                        const newBagProducts = bagProducts.map((bagProduct) => {
+                          if (bagProduct.id === product.id) {
+                            return {
+                              ...bagProduct,
+                              quantity: bagProduct.quantity + 1,
+                            };
+                          }
+                          return bagProduct;
+                        });
+                        setLoadingProductInBag(true);
+                        setBagProducts(newBagProducts);
                       } else {
-                        setBagProducts([{ ...product, quantity: 1 }]);
+                        setLoadingProductInBag(true);
+                        setBagProducts([...bagProducts, { ...product, quantity: 1 }]);
                       }
                     }
-                  } className="flex items-center justify-center gap-2 p-3 rounded-lg bg-platzi-secondary-background hover:bg-platzi-primary-purple font-medium">
+                  } className="flex items-center justify-center gap-2 p-3 font-medium rounded-lg bg-platzi-secondary-background hover:bg-platzi-primary-purple">
                   {
                     loadingProductInBag && product.id === bagProducts[bagProducts.length - 1]?.id
                       ?
