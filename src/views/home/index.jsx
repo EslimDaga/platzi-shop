@@ -8,7 +8,7 @@ import { getProducts } from "../../features/products/productsSlice";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
-import { ChevronDownIcon, HeartIcon, ShoppingBagIcon, ShoppingCartIcon, TrashIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, ChevronDownIcon, HeartIcon, ShoppingBagIcon, ShoppingCartIcon, TrashIcon } from "@heroicons/react/20/solid";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -21,7 +21,6 @@ const Home = () => {
   const [bagTotal, setBagTotal] = useState(0);
   const [bagProducts, setBagProducts] = useState([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [loadingProductInBag, setLoadingProductInBag] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -37,9 +36,6 @@ const Home = () => {
     setTimeout(() => {
       setBagTotal(bagProducts.length);
     }, 500);
-    //If bagProducts change, change price
-
-
   }, [bagProducts]);
 
   return (
@@ -421,11 +417,11 @@ const Home = () => {
                 </div>
                 <span className="text-lg font-bold text-platzi-primary-green">S/ {product.price}</span>
                 <button
+                  disabled={
+                    bagProducts.find((bagProduct) => bagProduct.id === product.id) ? true : false
+                  }
                   onClick={
                     () => {
-                      setTimeout(() => {
-                        setLoadingProductInBag(false);
-                      }, 500);
                       if (bagProducts.find((bagProduct) => bagProduct.id === product.id)) {
                         const newBagProducts = bagProducts.map((bagProduct) => {
                           if (bagProduct.id === product.id) {
@@ -436,43 +432,26 @@ const Home = () => {
                           }
                           return bagProduct;
                         });
-                        setLoadingProductInBag(true);
                         setBagProducts(newBagProducts);
                       } else {
-                        setLoadingProductInBag(true);
                         setBagProducts([...bagProducts, { ...product, quantity: 1 }]);
                       }
                     }
-                  } className="flex items-center justify-center gap-2 p-3 font-medium rounded-lg bg-platzi-secondary-background hover:bg-platzi-primary-purple">
+                  }
+                  className={
+                    "flex items-center justify-center gap-2 p-3 font-medium rounded-lg bg-platzi-secondary-background hover:bg-platzi-primary-purple" + (
+                      bagProducts.find((bagProduct) => bagProduct.id === product.id) ? " cursor-not-allowed hover:bg-platzi-secondary-background" : ""
+                    )
+                  }
+                >
                   {
-                    loadingProductInBag && product.id === bagProducts[bagProducts.length - 1]?.id
-                      ?
-                      (
-                        <svg
-                          className="w-6 h-6 mr-3 -ml-1 text-white animate-spin"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          ></circle>
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          ></path>
-                        </svg>
-                      )
-                      :
+                    bagProducts.map((bagProduct) => bagProduct.id).includes(product.id) ? (
+                      <CheckIcon className="w-5 h-5" />
+                    ) : (
                       <>
-                        <ShoppingCartIcon className="w-6 h-6 text-white" /> Agregar
+                        <ShoppingBagIcon className="w-5 h-5" /> Agregar
                       </>
+                    )
                   }
                 </button>
               </div>
