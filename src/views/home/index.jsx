@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
 import { CheckIcon, HeartIcon, ShoppingBagIcon, TrashIcon } from "@heroicons/react/20/solid";
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import Header from "../../components/Header";
 
 
 const Home = () => {
@@ -19,6 +20,10 @@ const Home = () => {
     ...state.products,
   }));
 
+  const openBagHandler = () => {
+    setOpenBag(!openBag);
+  };
+
   useEffect(() => {
     dispatch(getProducts());
   }, []);
@@ -31,57 +36,7 @@ const Home = () => {
 
   return (
     <>
-      <header>
-        <nav
-          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between w-full p-5 px-8 mx-auto bg-platzi-primary-background"
-          aria-label="Global"
-        >
-          <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Plazi Shop</span>
-              <img
-                className="w-auto h-8"
-                src="/images/logo_platzi.png"
-                alt="logo_platzi"
-              />
-            </a>
-          </div>
-          <div className="flex lg:hidden">
-            <div
-              className="flex flex-row p-2 px-4 truncate rounded cursor-pointer"
-              onClick={() => {
-                setOpenBag(!openBag);
-              }}
-            >
-              <div></div>
-              <div className="flex flex-row-reverse w-full ml-2">
-                <div slot="icon" className="relative">
-                  {bagTotal > 0 && (
-                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagTotal}</div>
-                  )}
-                  <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="items-center hidden lg:flex lg:flex-1 lg:justify-end">
-            <div
-              className="flex flex-row p-2 px-4 truncate rounded cursor-pointer"
-              onClick={() => { setOpenBag(!openBag); }}
-            >
-              <div></div>
-              <div className="flex flex-row-reverse w-full ml-2">
-                <div slot="icon" className="relative">
-                  {bagTotal > 0 && (
-                    <div className="absolute top-0 right-0 flex items-center justify-center w-5 px-2 pt-[2px] pb-[1px] -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full">{bagTotal}</div>
-                  )}
-                  <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header>
+      <Header openBagHandler={openBagHandler} bagTotal={bagTotal} />
       <section className="px-8 py-5 mt-20">
         <Transition.Root show={openBag} as={Fragment}>
           <Dialog as="div" className="relative z-50" onClose={setOpenBag}>
