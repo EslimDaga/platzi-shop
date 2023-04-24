@@ -8,7 +8,7 @@ import { getProducts } from "../../features/products/productsSlice";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
-import { CheckIcon, ChevronDownIcon, HeartIcon, ShoppingBagIcon, ShoppingCartIcon, TrashIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, ChevronDownIcon, HeartIcon, ShoppingBagIcon, TrashIcon } from "@heroicons/react/20/solid";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
