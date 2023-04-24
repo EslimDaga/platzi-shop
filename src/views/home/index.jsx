@@ -471,7 +471,7 @@ const Home = () => {
                       )
                       :
                       <>
-                        Agregar <ShoppingCartIcon className="w-6 h-6 text-white" />
+                        <ShoppingCartIcon className="w-6 h-6 text-white" /> Agregar
                       </>
                   }
                 </button>
