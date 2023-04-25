@@ -1,7 +1,7 @@
 import { ShoppingBagIcon } from "@heroicons/react/20/solid"
 import propTypes from "prop-types"
 
-const Header = ({ openBagHandler, bagTotal }) => {
+const Header = ({ openCloseBagHandler, bagTotal }) => {
   return (
     <header>
       <nav
@@ -21,7 +21,7 @@ const Header = ({ openBagHandler, bagTotal }) => {
         <div className="flex">
           <div
             className="flex flex-row p-2 px-4 truncate rounded cursor-pointer"
-            onClick={openBagHandler}
+            onClick={openCloseBagHandler}
           >
             <div></div>
             <div className="flex flex-row-reverse w-full ml-2">
@@ -42,6 +42,6 @@ const Header = ({ openBagHandler, bagTotal }) => {
 export default Header;
 
 Header.propTypes = {
-  openBagHandler: propTypes.func.isRequired,
+  openCloseBagHandler: propTypes.func.isRequired,
   bagTotal: propTypes.number.isRequired,
 }
